@@ -1,8 +1,5 @@
-#include <stdarg.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
-#include "libft.h"
+
+#include "ft_printf.h"
 
 void ft_puthexa(long n);
 void ft_putHEXA(long n);

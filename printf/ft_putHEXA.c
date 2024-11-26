@@ -1,21 +1,20 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "ft_printf.h"
 
-void ft_putHEXA(long n)
+int ft_putHEXA(long n)
 {
     unsigned int num;
     char c;
+    int count;
 
     num = (unsigned int)n;
     if (num == 0)
-        return;
+        return 0;
     if (num >= 16)
-        ft_putHEXA(num / 16);
+        count += ft_putHEXA(num / 16);
     if (num % 16 < 10)
         c = (num % 16) + '0';
     else
         c = (num % 16) - 10 + 'A';
-
-    write(1, &c, 1);
+    count += write(1, &c, 1);
+    return count;
 }
