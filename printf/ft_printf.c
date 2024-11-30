@@ -1,14 +1,13 @@
 
 #include "ft_printf.h"
 
-void ft_puthexa(long n);
-void ft_putHEXA(long n);
-void ft_putadress(void *n);
+
 int ft_printf(const char *str, ...)
 {
     va_list args;
     va_start(args, str);
     int i = 0;
+    
     while (str[i] != '\0')
     {
         if (str[i] == '%')

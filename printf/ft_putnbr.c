@@ -1,5 +1,6 @@
 #include "ft_printf.h"
-#include "libelf.h"
+#include "libft.h"
+
 int ft_putnbr(long n)
 {
 	int count;
@@ -10,7 +11,7 @@ int ft_putnbr(long n)
 	if (n < 0)
 	{
 		if (n == -2147483648)
-			return (1, "-2147483648", strlen("-2147483648"));
+			return (1, "-2147483648", ft_strlen("-2147483648"));
 		write(1, "-", 1);
 		n = -n;
 		isnega = 1;
@@ -21,9 +22,9 @@ int ft_putnbr(long n)
 	count += write(1, &c, 1);
 	return count + isnega;
 }
-#include <stdio.h>
-int main()
-{
-	int i = ft_putnbr(1000);
-	printf("\n%d", i);
-}
+// #include <stdio.h>
+// int main()
+// {
+// 	int i = ft_putnbr(1000);
+// 	printf("\n%d", i);
+// }
