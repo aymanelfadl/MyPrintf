@@ -1,7 +1,7 @@
 
 #include "ft_printf.h"
 
-
+// @todo add return value and fix ur code ya lma3gaze
 int ft_printf(const char *str, ...)
 {
     va_list args;
@@ -16,12 +16,12 @@ int ft_printf(const char *str, ...)
             if (str[i] == 'd' || str[i] == 'i')
             {
                 int val = va_arg(args, int);
-                ft_putnbr_fd(val, 1);
+                ft_putnbr(val);
             }
             if (str[i] == 'u')
             {
                 unsigned int val = (unsigned int)va_arg(args, unsigned int);
-                ft_putnbr_fd(val, 1);
+                ft_putnbr(val);
             }
             if (str[i] == 'x')
             {
@@ -35,13 +35,14 @@ int ft_printf(const char *str, ...)
             }
             if (str[i] == 'c')
             {
+                // @todo
                 char val = va_arg(args, int);
-                ft_putchar_fd(val, 1);
+                ft_putchar(val, 1);
             }
             if (str[i] == 's')
             {
                 char *val = va_arg(args, char *);
-                ft_putstr_fd(val, 1);
+                ft_putstr(val, 1);
             }
             if (str[i] == 'p')
             {
@@ -55,7 +56,7 @@ int ft_printf(const char *str, ...)
             }
         }
         else
-            ft_putchar_fd(str[i], 1);
+            ft_putchar(str[i], 1);
         i++;
     }
     va_end(args);
@@ -65,7 +66,6 @@ int ft_printf(const char *str, ...)
 int main()
 {
     int c = 100;
-    ft_printf("dyali :hello %%, %p, %d\n", &c, ft_printf("dyali :hello %%, %p, %d\n"));
     ft_printf("dyali :hello %%, %p, %d\n", &c, ft_printf("dyali :hello %%, %p, %d\n"));
     return 0;
 }
