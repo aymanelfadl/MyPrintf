@@ -1,6 +1,5 @@
 #include "libft.h"
 #include "printf.h"
-#include <stdio.h>
 
 int ft_putstr(char *s)
 {

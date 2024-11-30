@@ -1,31 +1,21 @@
-#include <unistd.h>
+#include "ft_printf.h"
 
-void ft_putadress(void *n)
+int ft_putadress(void *n)
 {
     unsigned long num;
     char c;
+    int count;
 
+    count = 0;
     num = (unsigned long)n;
     if (num == 0)
-        return;
+        return 0;
     if (num >= 16)
-        ft_putadress((void *)(num / 16));
+        count += ft_putadress((void *)(num / 16));
     if (num % 16 < 10)
         c = (num % 16) + '0';
     else
         c = (num % 16) - 10 + 'a';
 
-    write(1, &c, 1);
+    count += write(1, &c, 1);
 }
-
-// #include <stdio.h>
-// int main()
-// {
-//     int x = 0;
-//     int *ptr = &x;
-
-//     printf("%p", ptr);
-//     ft_puthexa(ptr);   // Pass the pointer to the function
-//     write(1, "\n", 1); // Print a newline
-//     return 0;
-// }

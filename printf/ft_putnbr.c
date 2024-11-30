@@ -22,9 +22,3 @@ int ft_putnbr(long n)
 	count += write(1, &c, 1);
 	return count + isnega;
 }
-// #include <stdio.h>
-// int main()
-// {
-// 	int i = ft_putnbr(1000);
-// 	printf("\n%d", i);
-// }
