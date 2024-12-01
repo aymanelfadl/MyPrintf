@@ -1,4 +1,3 @@
-#include "libft.h"
 #include "printf.h"
 
 int ft_putstr(char *s)
