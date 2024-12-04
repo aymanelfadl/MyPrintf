@@ -10,7 +10,7 @@ int ft_putnbr(long n)
 	if (n < 0)
 	{
 		if (n == -2147483648)
-			return (1, "-2147483648", ft_strlen("-2147483648"));
+			return write(1, "-2147483648", ft_strlen("-2147483648"));
 		write(1, "-", 1);
 		n = -n;
 		isnega = 1;

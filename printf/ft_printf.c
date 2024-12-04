@@ -7,7 +7,10 @@ int ft_printf(const char *str, ...)
     va_list args;
     va_start(args, str);
     int i = 0;
-    
+
+    if (!str)
+        return (0);
+
     while (str[i] != '\0')
     {
         if (str[i] == '%')
@@ -37,12 +40,12 @@ int ft_printf(const char *str, ...)
             {
                 // @todo
                 char val = va_arg(args, int);
-                ft_putchar(val, 1);
+                ft_putchar(val);
             }
             if (str[i] == 's')
             {
                 char *val = va_arg(args, char *);
-                ft_putstr(val, 1);
+                ft_putstr(val);
             }
             if (str[i] == 'p')
             {
@@ -56,16 +59,9 @@ int ft_printf(const char *str, ...)
             }
         }
         else
-            ft_putchar(str[i], 1);
+            ft_putchar(str[i]);
         i++;
     }
     va_end(args);
     return i;
-}
-
-int main()
-{
-    int c = 100;
-    ft_printf("dyali :hello %%, %p, %d\n", &c, ft_printf("dyali :hello %%, %p, %d\n"));
-    return 0;
 }

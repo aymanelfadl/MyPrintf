@@ -18,4 +18,5 @@ int ft_putadress(void *n)
         c = (num % 16) - 10 + 'a';
 
     count += write(1, &c, 1);
+    return count;
 }

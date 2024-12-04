@@ -7,6 +7,7 @@ int ft_putHEXA(long n)
     int count;
 
     num = (unsigned int)n;
+    count = 0;
     if (num == 0)
         return 0;
     if (num >= 16)
