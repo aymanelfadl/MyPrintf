@@ -3,6 +3,6 @@
 
 int main()
 {
-    // printf(NULL);
-    ft_printf(NULL);
+    // printf("%%%s");
+    ft_printf("s");
 }
