@@ -45,6 +45,8 @@ int ft_printf(const char *str, ...)
                 count += write(1, &str[i], 1);
             }
         }
+        else if (str[i] == '%' && str[i+1] == '\0')
+            return -1;
         else
             count += write(1,&str[i],1);
         i++;
