@@ -9,14 +9,13 @@ int ft_putadress(void *n)
     count = 0;
     num = (unsigned long)n;
     if (num == 0)
-        return 0;
+        return write(1,"(nil)", ft_strlen("(nil)"));
     if (num >= 16)
         count += ft_putadress((void *)(num / 16));
     if (num % 16 < 10)
         c = (num % 16) + '0';
     else
         c = (num % 16) - 10 + 'a';
-
     count += write(1, &c, 1);
     return count;
 }

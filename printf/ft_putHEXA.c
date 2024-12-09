@@ -9,7 +9,7 @@ int ft_putHEXA(long n)
     num = (unsigned int)n;
     count = 0;
     if (num == 0)
-        return 0;
+        return write(1, "0", 1);
     if (num >= 16)
         count += ft_putHEXA(num / 16);
     if (num % 16 < 10)

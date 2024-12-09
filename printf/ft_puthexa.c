@@ -8,8 +8,8 @@ int ft_puthexa(long n)
 
     count = 0;
     num = (unsigned int)n;
-    if (num == 0)
-        return 0;
+if (num == 0)
+        return write(1, "0", 1);
     if (num >= 16)
         count += ft_puthexa(num / 16);
     if (num % 16 < 10)
@@ -17,6 +17,5 @@ int ft_puthexa(long n)
     else
         c = (num % 16) - 10 + 'a';
     count += write(1, &c, 1);
-
     return count;
 }
