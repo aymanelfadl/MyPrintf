@@ -50,16 +50,13 @@ int	ft_printf(const char *str, ...)
 	va_start(args, str);
 	i = 0;
 	count = 0;
-	ret = 0;
 	if (!str)
 		return (0);
 	while (str[i])
 	{
 		if (str[i] == '%')
 		{
-			i++;
-			ret = ft_printer(str + i, args, str);
-			if (ret == -1)
+			if ((ret = ft_printer(str + (++i), args, str)) == -1)
 				return (-1);
 			count += ret;
 			if (!str[i])
