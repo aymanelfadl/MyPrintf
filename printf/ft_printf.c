@@ -36,12 +36,25 @@ int ft_printer(const char *c, va_list args)
     return count;
 }
 
+int ft_wechkine(const char *str)
+{
+    int len = ft_strlen((char *)str) - 2;
+    while(len> 0)
+    {
+        if (*(str+len) == '%')
+            return 1;
+        len--;
+    }
+    return 0;
+}
 int ft_printf(const char *str, ...)
 {
     va_list args;
     va_start(args, str);
     int i = 0;
     int count = 0;
+    int kine = ft_wechkine(str);
+    printf("kine: %d\n",kine);
     
     if (!str)
         return (0);
@@ -54,12 +67,13 @@ int ft_printf(const char *str, ...)
             i++;
             count += ft_printer(str+i,args);
         }
-        else
-        {
-            count += write(1, &str[i], 1);
-        }
+        else if (kine && str[i+1] == '\0')
+           count += write(1,&str[i],1);
+        else 
+            return -1;
         i++;
     }
     va_end(args);
+
     return count;
 }
