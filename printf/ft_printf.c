@@ -5,7 +5,7 @@ int	ft_wechkine(const char *str)
 	int	i;
 
 	i = 0;
-	while (str[i]) // %%
+	while (str[i])
 	{
 		if (str[i++] == '%')
 			if (!(strchr("csiupdxX%", str[i])))
@@ -16,43 +16,28 @@ int	ft_wechkine(const char *str)
 
 int	ft_printer(const char *c, va_list args, const char *str)
 {
-	int		count;
-	void	*val;
-
-	count = 0;
 	if (*c == 'd' || *c == 'i')
-		count += ft_putnbr(va_arg(args, int));
+		ft_putnbr(va_arg(args, int));
 	else if (*c == 'u')
-		count += ft_putnbr(va_arg(args, unsigned int));
+		return (ft_putnbr(va_arg(args, unsigned int)));
 	else if (*c == 'x')
-		count += ft_puthexa(va_arg(args, int));
+		return (ft_puthexa(va_arg(args, int)));
 	else if (*c == 'X')
-		count += ft_putHEXA(va_arg(args, int));
+		return (ft_putHEXA(va_arg(args, int)));
 	else if (*c == 'c')
-		count += ft_putchar(va_arg(args, int));
+		return (ft_putchar(va_arg(args, int)));
 	else if (*c == 's')
-		count += ft_putstr(va_arg(args, char *));
+		return (ft_putstr(va_arg(args, char *)));
 	else if (*c == 'p')
-	{
-		val = va_arg(args, char *);
-		if (!val)
-			count += ft_putadress(val);
-		else
-			count += (write(1, "0x", ft_strlen("0x")) + ft_putadress(val));
-	}
+		return (ft_putadress(va_arg(args, char *)));
 	else if (*c == '%')
-		count += write(1, "%", 1);
+		return (write(1, "%", 1));
 	else if (*c == '\0' && !ft_wechkine(str))
-	{
 		return (-1);
-	}
 	else if (*c == '\0' && ft_wechkine(str))
-	{
-		count += write(1, c - 1, 1);
-	}
+		return (write(1, c - 1, 1));
 	else
-		count += (write(1, c - 1, 1) + write(1, c, 1));
-	return (count);
+		return (write(1, c - 1, 1) + write(1, c, 1));
 }
 
 int	ft_printf(const char *str, ...)
