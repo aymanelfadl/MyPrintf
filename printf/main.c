@@ -4,7 +4,9 @@
 
 int main(void)
 {
-    int i = printf("k%k%%k%%k%");
-    printf("\n%d",i);
+    int i = printf("%%kk%");
+    printf("\n%d\n",i);
+    int j = ft_printf("%%kk%");
+    ft_printf("\n%d",j);
     return i;
 }

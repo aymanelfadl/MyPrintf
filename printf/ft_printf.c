@@ -1,6 +1,21 @@
 #include "ft_printf.h"
 
-int ft_printer(const char *c, va_list args)
+
+int ft_wechkine(const char *str)
+{
+    int i = 0;
+    
+    while(str[i])   // %%
+    {
+        if (str[i++] == '%')
+            if (!(strchr("csiupdxX%" ,str[i])))
+                return (1);
+        
+    }
+    return  0;
+}
+
+int ft_printer(const char *c, va_list args, const char *str)
 {
     int count = 0;
     if (*c == 'd' || *c == 'i')
@@ -21,63 +36,48 @@ int ft_printer(const char *c, va_list args)
         if (!val)
             count += ft_putadress(val);
         else
-        {
-            count += write(1, "0x", ft_strlen("0x"));
-            count += ft_putadress(val);
-        }
+            count += (write(1, "0x", ft_strlen("0x")) +  ft_putadress(val));
     }
     else if (*c == '%')
         count += write(1, "%", 1);
-    else 
-    {
-        count += write(1, c-1 ,1);
-        count += write(1, c, 1);
-    }
+    else if (*c == '\0' && !ft_wechkine(str)){
+        return -1;
+    }else if (*c == '\0' && ft_wechkine(str)){
+        count += write(1, c-1 ,1) ;
+    }else
+        count += (write(1, c-1 ,1) + write(1, c, 1));
     return count;
 }
 
-int ft_wechkine(const char *str)
-{
-    int len = ft_strlen((char *)str) - 2;
-    int res = 0;
-    while(len > 0)
-    {
-        if (*(str+len) == '%')
-            return res++;
-        len--;
-    }
-    if ((res % 2) == 0)
-        return 0;
-    else
-        return 1;
-}
+
+
 int ft_printf(const char *str, ...)
 {
     va_list args;
     va_start(args, str);
     int i = 0;
     int count = 0;
-    int kine = ft_wechkine(str);
-    // printf("kine: %d\n",kine);
+    int ret = 0;
     
     if (!str)
         return (0);
-    while (str[i] != '\0')
+    while (str[i] )
     {
-        if (str[i] != '%')
-           count += write(1,&str[i],1);
-        else if (str[i] == '%' && str[i+1] != '\0')
+        if (str[i] == '%')
         {
             i++;
-            count += ft_printer(str+i,args);
+            ret = ft_printer(str+i,args, str);
+            if (ret == -1)
+                return (-1);
+            count += ret;
+            if (str[i] == '\0')
+                break ;
         }
-        else if (kine && str[i+1] == '\0')
+        else
            count += write(1,&str[i],1);
-        else 
-            return -1;
+
         i++;
     }
     va_end(args);
-
     return count;
 }
