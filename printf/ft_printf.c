@@ -1,5 +1,41 @@
 #include "ft_printf.h"
 
+int ft_printer(const char *c, va_list args)
+{
+    int count = 0;
+    if (*c == 'd' || *c == 'i')
+        count += ft_putnbr(va_arg(args, int));
+    else if (*c == 'u')
+        count += ft_putnbr(va_arg(args, unsigned int));
+    else if (*c == 'x')
+        count += ft_puthexa(va_arg(args, int));
+    else if (*c == 'X')
+        count += ft_putHEXA(va_arg(args, int));
+    else if (*c == 'c')
+        count += ft_putchar(va_arg(args, int));
+    else if (*c == 's')
+        count += ft_putstr(va_arg(args, char *));
+    else if (*c == 'p')
+    {
+        void *val =  va_arg(args, char *);
+        if (!val)
+            count += ft_putadress(val);
+        else
+        {
+            count += write(1, "0x", ft_strlen("0x"));
+            count += ft_putadress(val);
+        }
+    }
+    else if (*c == '%')
+        count += write(1, "%", 1);
+    else 
+    {
+        count += write(1, c-1 ,1);
+        count += write(1, c, 1);
+    }
+    return count;
+}
+
 int ft_printf(const char *str, ...)
 {
     va_list args;
@@ -11,44 +47,17 @@ int ft_printf(const char *str, ...)
         return (0);
     while (str[i] != '\0')
     {
-        if (str[i] == '%' && str[i+1] != '\0')
+        if (str[i] != '%')
+           count += write(1,&str[i],1);
+        else if (str[i] == '%' && str[i+1] != '\0')
         {
             i++;
-            if (str[i] == 'd' || str[i] == 'i')
-                count += ft_putnbr(va_arg(args, int));
-            else if (str[i] == 'u')
-                count += ft_putnbr(va_arg(args, unsigned int));
-            else if (str[i] == 'x')
-                count += ft_puthexa(va_arg(args, int));
-            else if (str[i] == 'X')
-                count += ft_putHEXA(va_arg(args, int));
-            else if (str[i] == 'c')
-                count += ft_putchar(va_arg(args, int));
-            else if (str[i] == 's')
-                count += ft_putstr(va_arg(args, char *));
-            else if (str[i] == 'p')
-            {
-                void *val =  va_arg(args, char *);
-                if (!val)
-                    count += ft_putadress(val);
-                else
-                {
-                    count += write(1, "0x", ft_strlen("0x"));
-                    count += ft_putadress(val);
-                }
-            }
-            else if (str[i] == '%')
-                count += write(1, "%%", 1);
-            else
-            {
-                count += write(1, &str[i-1],1);
-                count += write(1, &str[i], 1);
-            }
+            count += ft_printer(str+i,args);
         }
-        else if (str[i] == '%' && str[i+1] == '\0')
-            return -1;
         else
-            count += write(1,&str[i],1);
+        {
+            count += write(1, &str[i], 1);
+        }
         i++;
     }
     va_end(args);
