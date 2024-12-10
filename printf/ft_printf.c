@@ -15,7 +15,7 @@ int	ft_wechkine(const char *str)
 	return (0);
 }
 
-int	ft_printer(const char *c, va_list args, const char *str, int *i)
+int	ft_printer(const char *c, va_list args, const char *str)
 {
 	if (*c == 'd' || *c == 'i')
 		return (ft_putnbr(va_arg(args, int)));
@@ -58,7 +58,7 @@ int	ft_printf(const char *str, ...)
 		if (str[i] == '%')
 		{
 			i++;
-			ret = ft_printer(str + i, args, str, &i);
+			ret = ft_printer(str + i, args, str);
 			if (ret == -1)
 				return (-1);
 			count += ret;
