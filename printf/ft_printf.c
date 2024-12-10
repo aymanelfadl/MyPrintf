@@ -10,14 +10,16 @@ int	ft_wechkine(const char *str)
 		if (str[i++] == '%')
 			if (!(strchr("csiupdxX%", str[i])))
 				return (1);
+		i++;
 	}
 	return (0);
 }
 
-int	ft_printer(const char *c, va_list args, const char *str)
+int	ft_printer(const char *c, va_list args, const char *str, int *i)
 {
+	(*i)++;
 	if (*c == 'd' || *c == 'i')
-		ft_putnbr(va_arg(args, int));
+		return (ft_putnbr(va_arg(args, int)));
 	else if (*c == 'u')
 		return (ft_putnbr(va_arg(args, unsigned int)));
 	else if (*c == 'x')
@@ -36,8 +38,7 @@ int	ft_printer(const char *c, va_list args, const char *str)
 		return (-1);
 	else if (*c == '\0' && ft_wechkine(str))
 		return (write(1, c - 1, 1));
-	else
-		return (write(1, c - 1, 1) + write(1, c, 1));
+	return (write(1, c - 1, 1) + write(1, c, 1));
 }
 
 int	ft_printf(const char *str, ...)
@@ -58,11 +59,11 @@ int	ft_printf(const char *str, ...)
 		if (str[i] == '%')
 		{
 			i++;
-			ret = ft_printer(str + i, args, str);
+			ret = ft_printer(str + i, args, str, &i);
 			if (ret == -1)
 				return (-1);
 			count += ret;
-			if (str[i] == '\0')
+			if (!str[i])
 				break ;
 		}
 		else
