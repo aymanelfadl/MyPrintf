@@ -17,7 +17,6 @@ int	ft_wechkine(const char *str)
 
 int	ft_printer(const char *c, va_list args, const char *str, int *i)
 {
-	(*i)++;
 	if (*c == 'd' || *c == 'i')
 		return (ft_putnbr(va_arg(args, int)));
 	else if (*c == 'u')
