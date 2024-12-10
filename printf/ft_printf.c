@@ -39,13 +39,17 @@ int ft_printer(const char *c, va_list args)
 int ft_wechkine(const char *str)
 {
     int len = ft_strlen((char *)str) - 2;
-    while(len> 0)
+    int res = 0;
+    while(len > 0)
     {
         if (*(str+len) == '%')
-            return 1;
+            return res++;
         len--;
     }
-    return 0;
+    if ((res % 2) == 0)
+        return 0;
+    else
+        return 1;
 }
 int ft_printf(const char *str, ...)
 {
@@ -54,7 +58,7 @@ int ft_printf(const char *str, ...)
     int i = 0;
     int count = 0;
     int kine = ft_wechkine(str);
-    printf("kine: %d\n",kine);
+    // printf("kine: %d\n",kine);
     
     if (!str)
         return (0);

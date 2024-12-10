@@ -4,7 +4,7 @@
 
 int main(void)
 {
-    int i = ft_printf("kkc%");
+    int i = printf("k%k%%k%%k%");
     printf("\n%d",i);
     return i;
 }
