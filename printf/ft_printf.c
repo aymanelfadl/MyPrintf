@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelfadl <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/11 13:20:05 by aelfadl           #+#    #+#             */
+/*   Updated: 2024/12/11 13:27:20 by aelfadl          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	ft_wechkine(const char *str)
@@ -24,7 +36,7 @@ int	ft_printer(const char *c, va_list args, const char *str)
 	else if (*c == 'x')
 		return (ft_puthexa(va_arg(args, int)));
 	else if (*c == 'X')
-		return (ft_putHEXA(va_arg(args, int)));
+		return (ft_puthexam(va_arg(args, int)));
 	else if (*c == 'c')
 		return (ft_putchar(va_arg(args, int)));
 	else if (*c == 's')
@@ -42,14 +54,13 @@ int	ft_printer(const char *c, va_list args, const char *str)
 
 int	ft_printf(const char *str, ...)
 {
-	va_list	args;
-	int		i;
-	int		count;
+	va_list		args;
+	int		(i), (count);
 	int		ret;
 
 	va_start(args, str);
 	i = 0;
-	count = 0;
+	count = 0 ;
 	if (!str)
 		return (0);
 	while (str[i])
@@ -69,3 +80,4 @@ int	ft_printf(const char *str, ...)
 	va_end(args);
 	return (count);
 }
+
