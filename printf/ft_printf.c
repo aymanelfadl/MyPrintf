@@ -22,7 +22,7 @@ int	ft_wechkine(const char *str)
 		if (str[i] == '%')
 		{
 			i++;
-			if (!(strchr("csiupdxX%", str[i])))
+			if (!(ft_strchr("csiupdxX%", str[i])))
 				return (1);
 		}
 		i++;
@@ -57,10 +57,12 @@ int	ft_printer(const char *c, va_list args, const char *str)
 
 int	ft_lop(const char *str, int *i, va_list args)
 {
-	int		ret;
-	int		count;
+	int	ret;
+	int	count;
 
 	*i = 0;
+	ret = 0;
+	count = 0;
 	while (str[*i])
 	{
 		if (str[*i] == '%')
@@ -82,9 +84,9 @@ int	ft_lop(const char *str, int *i, va_list args)
 
 int	ft_printf(const char *str, ...)
 {
-	va_list		args;
-	int			i;
-	int			count;
+	va_list	args;
+	int		i;
+	int		count;
 
 	count = 0;
 	va_start(args, str);
