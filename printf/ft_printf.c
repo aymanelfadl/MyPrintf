@@ -6,7 +6,7 @@
 /*   By: aelfadl <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:20:05 by aelfadl           #+#    #+#             */
-/*   Updated: 2024/12/11 13:27:20 by aelfadl          ###   ########.fr       */
+/*   Updated: 2024/12/11 14:46:20 by aelfadl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ int	ft_wechkine(const char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i++] == '%')
+		if (str[i] == '%')
+		{
+			i++;
 			if (!(strchr("csiupdxX%", str[i])))
 				return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -52,32 +55,42 @@ int	ft_printer(const char *c, va_list args, const char *str)
 	return (write(1, c - 1, 1) + write(1, c, 1));
 }
 
-int	ft_printf(const char *str, ...)
+int	ft_lop(const char *str, int *i, va_list args)
 {
-	va_list		args;
-	int		(i), (count);
 	int		ret;
+	int		count;
 
-	va_start(args, str);
-	i = 0;
-	count = 0 ;
-	if (!str)
-		return (0);
-	while (str[i])
+	*i = 0;
+	while (str[*i])
 	{
-		if (str[i] == '%')
+		if (str[*i] == '%')
 		{
-			if ((ret = ft_printer(str + (++i), args, str)) == -1)
+			(*i)++;
+			ret = ft_printer(str + (*i), args, str);
+			if (ret == -1)
 				return (-1);
 			count += ret;
-			if (!str[i])
+			if (!str[*i])
 				break ;
 		}
 		else
-			count += write(1, &str[i], 1);
-		i++;
+			count += write(1, &str[*i], 1);
+		(*i)++;
 	}
-	va_end(args);
 	return (count);
 }
 
+int	ft_printf(const char *str, ...)
+{
+	va_list		args;
+	int			i;
+	int			count;
+
+	count = 0;
+	va_start(args, str);
+	if (!str)
+		return (0);
+	count = ft_lop(str, &i, args);
+	va_end(args);
+	return (count);
+}
